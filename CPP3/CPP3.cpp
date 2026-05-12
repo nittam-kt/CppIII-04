@@ -53,6 +53,22 @@ void Update();
 void Render();
 void RenderUI();
 
+
+
+class Enemy
+{
+    float x;
+    float y;
+    virtual void update() {}
+};
+
+class Slime : public Enemy
+{
+    int life;
+    void update() override{}
+};
+
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR    lpCmdLine,
@@ -164,7 +180,7 @@ void Render()
     // 描画実行
     //-----------------------------
     // デバイスコンテキスト、上記のセットした内容で描画する
-    D3DManager::getInstance()->GetContext()->Draw(3, 0);
+//    D3DManager::getInstance()->GetContext()->Draw(3, 0);
 }
 
 
@@ -174,13 +190,15 @@ void RenderUI()
     // 文字の描画
     g_spriteBatch->Begin();
 
-    std::wstring x0 = std::to_wstring(v[0].Pos.x);
-    std::wstring y0 = std::to_wstring(v[0].Pos.y);
+    std::wstring str1 = std::to_wstring(1);
+    std::wstring str2 = std::to_wstring(2);
 
-    std::wstring str = L"(" + x0 + L"," + y0 + L")";
     g_spriteFont->DrawString(g_spriteBatch.get(),
-        str.c_str(),
+        str1.c_str(),
         DirectX::XMFLOAT2{ 100, 100 });
+    g_spriteFont->DrawString(g_spriteBatch.get(),
+        str2.c_str(),
+        DirectX::XMFLOAT2{ 100, 150 });
 
     g_spriteBatch->End();
 }
